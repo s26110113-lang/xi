@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY PORTFOLIO QUEST ♡ ✦ ⋆</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Noto Sans TC -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #f7f7f8;
+            --dot-color: #d1d5db;
+            --card-bg: #ffffff;
+            --text-main: #111827;
+            --accent-black: #000000;
+            --gray-locked: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--dot-color) 1.5px, transparent 1.5px);
+            background-size: 20px 20px;
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-6px) rotate(1deg); }
+        }
+
+        @keyframes pulse-star {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.8; }
+            50% { transform: scale(1.25) rotate(15deg); opacity: 1; }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-4px); }
+            40%, 80% { transform: translateX(4px); }
+        }
+
+        @keyframes sparkle-rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .star-sparkle {
+            display: inline-block;
+            animation: pulse-star 2.5s ease-in-out infinite;
+        }
+
+        .star-spin {
+            display: inline-block;
+            animation: sparkle-rotate 8s linear infinite;
+        }
+
+        .unlocked-card {
+            background: #ffffff;
+            border: 2px solid #000000;
+            box-shadow: 4px 4px 0px #000000;
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .unlocked-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .unlocked-card:hover::before {
+            left: 100%;
+        }
+
+        .unlocked-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 7px 7px 0px #000000;
+            background-color: #fafafa;
+        }
+
+        .unlocked-card:active {
+            transform: translateY(2px) scale(0.99);
+            box-shadow: 2px 2px 0px #000000;
+        }
+
+        /* Locked Card Styles */
+        .locked-card {
+            background: #f1f5f9;
+            border: 2px dashed #94a3b8;
+            color: #64748b;
+            cursor: not-allowed;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .locked-card:hover {
+            border-color: #475569;
+            background-color: #e2e8f0;
+            animation: shake 0.4s ease-in-out;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #111827;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="min-h-screen py-10 px-4 flex flex-col items-center justify-between">
+
+    <!-- Floating Background Decorative Sparkles -->
+    <div class="fixed top-12 left-10 text-2xl select-none pointer-events-none opacity-40 star-sparkle" style="animation-delay: 0s;">✦</div>
+    <div class="fixed top-1/4 right-12 text-3xl select-none pointer-events-none opacity-30 star-sparkle" style="animation-delay: 0.8s;">✧</div>
+    <div class="fixed bottom-20 left-16 text-xl select-none pointer-events-none opacity-40 star-sparkle" style="animation-delay: 1.5s;">⋆</div>
+    <div class="fixed bottom-1/3 right-16 text-2xl select-none pointer-events-none opacity-30 star-sparkle" style="animation-delay: 0.4s;">♡</div>
+
+    <main class="w-full max-w-4xl mx-auto flex flex-col items-center">
+        
+        <!-- Profile Card Container -->
+        <section class="bg-white border-2 border-black rounded-3xl p-6 sm:p-8 w-full shadow-[6px_6px_0px_#000000] text-center relative mb-8 animate-float">
+            
+            <!-- Top Tag Badge -->
+            <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-black text-white px-4 py-1 rounded-full text-xs font-semibold tracking-wider flex items-center gap-1 shadow-sm">
+                <span class="text-xs">♡</span> WEB DEVELOPMENT QUEST <span class="text-xs">✦</span>
+            </div>
+
+            <!-- Avatar Wrapper with Cute Border -->
+            <div class="relative w-28 h-28 sm:w-32 sm:h-32 mx-auto mt-2 mb-4">
+                <div class="w-full h-full rounded-full border-2 border-black p-1 bg-white shadow-[3px_3px_0px_#000000] overflow-hidden group">
+                    <img src="https://i.postimg.cc/RFvBpXrS/wu-biao-ti790-20260805200904.jpg" 
+                         alt="Avatar" 
+                         onerror="this.src='https://placehold.co/150x150/111827/FFFFFF?text=PROFILE+♡'"
+                         class="w-full h-full object-cover rounded-full grayscale hover:grayscale-0 transition-all duration-300 transform group-hover:scale-110" />
+                </div>
+                <!-- Decorative Corner Badges -->
+                <span class="absolute -bottom-1 -right-1 bg-white border border-black rounded-full w-8 h-8 flex items-center justify-center text-sm shadow-[2px_2px_0px_#000] star-spin">
+                    ✦
+                </span>
+                <span class="absolute -top-1 -left-1 bg-white border border-black rounded-full w-7 h-7 flex items-center justify-center text-xs shadow-[2px_2px_0px_#000]">
+                    ♡
+                </span>
+            </div>
+
+            <!-- Name and Title -->
+            <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-black flex items-center justify-center gap-2">
+                <span>MY PORTFOLIO</span>
+                <span class="text-lg star-sparkle">⋆˚.♡</span>
+            </h1>
+            <p class="text-xs sm:text-sm text-gray-600 mt-1 font-medium tracking-wide">
+                網頁前端程式設計作品集 𖦹 Web Development Log
+            </p>
+
+            <!-- Level Progress Bar -->
+            <div class="mt-6 max-w-xs sm:max-w-md mx-auto bg-gray-100 border border-black rounded-full p-1.5 flex items-center gap-3 shadow-inner">
+                <span class="text-xs font-bold pl-2 text-black whitespace-nowrap flex items-center gap-1">
+                    <span>LEVEL</span>
+                    <span class="bg-black text-white px-1.5 py-0.5 rounded text-[10px]">2/16</span>
+                </span>
+                <div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden border border-gray-300 relative">
+                    <!-- Progress (2/16 = 12.5%) -->
+                    <div class="bg-black h-full rounded-full transition-all duration-1000 relative" style="width: 12.5%;">
+                        <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+                    </div>
+                </div>
+                <span class="text-xs pr-2 font-bold">12.5%</span>
+            </div>
+        </section>
+
+        <!-- Buttons Grid (16 Level Grid) -->
+        <section class="w-full">
+            <div class="flex items-center justify-between mb-4 px-2">
+                <h2 class="text-sm font-bold tracking-wider text-gray-800 flex items-center gap-1.5">
+                    <span>✦</span> SELECT A STAGE
+                </h2>
+                <span class="text-xs text-gray-500 font-mono">16 STAGES TOTAL ♡</span>
+            </div>
+
+            <!-- Responsive 4x4 Grid on Desktop, 2 Columns on Mobile -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
+                
+                <!-- Button 1 (Unlocked) -->
+                <a href="w1/index.html" class="unlocked-card rounded-2xl p-4 flex flex-col justify-between min-h-[120px] group">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-black uppercase tracking-wider bg-black text-white px-2 py-0.5 rounded-full">
+                            WEEK 01
+                        </span>
+                        <span class="text-xs font-bold text-emerald-600 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded-md flex items-center gap-0.5">
+                            ● OPEN
+                        </span>
+                    </div>
+                    <div class="my-2">
+                        <h3 class="font-bold text-sm sm:text-base leading-tight group-hover:underline decoration-2">
+                            數位名片
+                        </h3>
+                        <p class="text-[11px] text-gray-500 mt-0.5">w1/index.html</p>
+                    </div>
+                    <div class="flex items-center justify-between text-xs font-semibold pt-1 border-t border-gray-100 text-gray-700">
+                        <span>START</span>
+                        <span class="transform group-hover:translate-x-1 transition-transform">→</span>
+                    </div>
+                </a>
+
+                <!-- Button 2 (Unlocked) -->
+                <a href="w2/index.html" class="unlocked-card rounded-2xl p-4 flex flex-col justify-between min-h-[120px] group">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-black uppercase tracking-wider bg-black text-white px-2 py-0.5 rounded-full">
+                            WEEK 02
+                        </span>
+                        <span class="text-xs font-bold text-emerald-600 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded-md flex items-center gap-0.5">
+                            ● OPEN
+                        </span>
+                    </div>
+                    <div class="my-2">
+                        <h3 class="font-bold text-sm sm:text-base leading-tight group-hover:underline decoration-2">
+                            今天ㄔ什麼?
+                        </h3>
+                        <p class="text-[11px] text-gray-500 mt-0.5">w2/index.html</p>
+                    </div>
+                    <div class="flex items-center justify-between text-xs font-semibold pt-1 border-t border-gray-100 text-gray-700">
+                        <span>START</span>
+                        <span class="transform group-hover:translate-x-1 transition-transform">→</span>
+                    </div>
+                </a>
+
+                <!-- Button 3 (Locked) -->
+                <div class="locked-card rounded-2xl p-4 flex flex-col justify-between min-h-[120px] select-none" onclick="showLockedNotice(3)">
+                    <div class="flex items-center justify-between opacity-60">
+                        <span class="text-[10px] font-bold uppercase tracking-wider bg-gray-300 text-gray-700 px-2 py-0.5 rounded-full">
+                            WEEK 03
+                        </span>
+                        <span class="text-xs">🔒</span>
+                    </div>
+                    <div class="my-2">
+                        <h3 class="font-bold text-sm text-gray-500">尚未解鎖</h3>
+                        <p class="text-[11px] text-gray-400 mt-0.5">Locked Mission</p>
+                    </div>
+                    <div class="flex items-center justify-between text-[11px] font-medium text-gray-400 pt-1 border-t border-gray-200">
+                        <span>QUEST #03</span>
+                        <span>✦</span>
+                    </div>
+                </div>
+
+                <!-- Button 4 (Locked) -->
+                <div class="locked-card rounded-2xl p-4 flex flex-col justify-between min-h-[120px] select-none" onclick="showLockedNotice(4)">
+                    <div class="flex items-center justify-between opacity-60">
+                        <span class="text-[10px] font-bold uppercase tracking-wider bg-gray-300 text-gray-700 px-2 py-0.5 rounded-full">
+                            WEEK 04
+                        </span>
+                        <span class="text-xs">🔒</span>
+                    </div>
+                    <div class="my-2">
+                        <h3 class="font-bold text-sm text-gray-500">尚未解鎖</h3>
+                        <p class="text-[11px] text-gray-400 mt-0.5">Locked Mission</p>
+                    </div>
+                    <div class="flex items-center justify-between text-[11px] font-medium text-gray-400 pt-1 border-t border-gray-200">
+                        <span>QUEST #04</span>
+                        <span>✦</span>
+                    </div>
+                </div>
+
+                <!-- Button 5 (Locked) -->
+                <div class="locked-card rounded-2xl p-4 flex flex-col justify-between min-h-[120px] select-none" onclick="showLockedNotice(5)">
+                    <div class="flex items-center justify-between opacity-60">
+                        <span class="text-[10px] font-bold uppercase tracking-wider bg-gray-300 text-gray-700 px-2 py-0.5 rounded-full">
+                            WEEK 05
+                        </span>
+                        <span class="text-xs">🔒</span>
+                    </div>
+                    <div class="my-2">
+                        <h3 class="font-bold text-sm text-gray-500">尚未解鎖</h3>
+                        <p class="text-[11px] text-gray-400 mt-0.5">Locked Mission</p>
+                    </div>
+                    <div class="flex items-center justify-between text-[11px] font-medium text-gray-400 pt-1 border-t border-gray-200">
+                        <span>QUEST #05</span>
+                        <span>✦</span>
+                    </div>
+                </div>
+
+                <!-- Button 6 (Locked) -->
+                <div class="locked-card rounded-2xl p-4 flex flex-col justify-between min-h-[120px] select-none" onclick="showLockedNotice(6)">
+                    <div class="flex items-center justify-between opacity-60">
+                        <span class="text-[10px] font-bold uppercase tracking-wider bg-gray-300 text-gray-700 px-2 py-0.5 rounded-full">
+                            WEEK 06
+                        </span>
+                        <span class="text-xs">🔒</span>
+                    </div>
+                    <div class="my-2">
+                        <h3 class="font-bold text-sm text-gray-500">尚未解鎖</h3>
+                        <p class="text-[11px] text-gray-400 mt-0.5">Locked Mission</p>
+                    </div>
+                    <div class="flex items-center justify-between text-[11px] font-medium text-gray-400 pt-1 border-t border-gray-200">
+                        <span>QUEST #06</span>
+                        <span>✦</span>
+                    </div>
+                </div>
+
+                <!-- Button 7 (Locked) -->
+                <div class="locked-card rounded-2xl p-4 flex flex-col justify-between min-h-[120px] select-none" onclick="showLockedNotice(7)">
+                    <div class="flex items-center justify-between opacity-60">
+                        <span class="text-[10px] font-bold uppercase tracking-wider bg-gray-300 text-gray-700 px-2 py-0.5 rounded-full">
+                            WEEK 07
+                        </span>
+                        <span class="text-xs">🔒</span>
+                    </div>
+                    <div class="my-2">
+                        <h3 class="font-bold text-sm text-gray-500">尚未解鎖</h3>
+                        <p class="text-[11px] text-gray-400 mt-0.5">Locked Mission</p>
+                    </div>
+                    <div class="flex items-center justify-between text-[11px] font-medium text-gray-400 pt-1 border-t border-gray-200">
+                        <span>QUEST #07</span>
+                        <span>✦</span>
+                    </div>
+                </div>
+
+                <!-- Button 8 (Locked) -->
+                <div class="locked-card rounded-2xl p-4 flex flex-col justify-between min-h-[120px] select-none" onclick="showLockedNotice(8)">
+                    <div class="flex items-center justify-between opacity-60">
+                        <span class="text-[10px] font-bold uppercase tracking-wider bg-gray-300 text-gray-700 px-2 py-0.5 rounded-full">
+                            WEEK 08
+                        </span>
+                        <span class="text-xs">🔒</span>
+                    </div>
+                    <div class="my-2">
+                        <h3 class="font-bold text-sm text-gray-500">尚未解鎖</h3>
+                        <p class="text-[11px] text-gray-400 mt-0.5">Locked Mission</p>
+                    </div>
+                    <div class="flex items-center justify-between text-[11px] font-medium text-gray-400 pt-1 border-t border-gray-200">
+                        <span>QUEST #08</span>
+                        <span>✦</span>
+                    </div>
+                </div>
+
+                <!-- Button 9 (Locked) -->
+                <div class="locked-card rounded-2xl p-4 flex flex-col justify-between min-h-[120px] select-none" onclick="showLockedNotice(9)">
+                    <div class="flex items-center justify-between opacity-60">
+                        <span class="text-[10px] font-bold uppercase tracking-wider bg-gray-300 text-gray-700 px-2 py-0.5 rounded-full">
+                            WEEK 09
+                        </span>
+                        <span class="text-xs">🔒</span>
+                    </div>
+                    <div class="my-2">
+                        <h3 class="font-bold text-sm text-gray-500">尚未解鎖</h3>
+                        <p class="text-[11px] text-gray-400 mt-0.5">Locked Mission</p>
+                    </div>
+                    <div class="flex items-center justify-between text-[11px] font-medium text-gray-400 pt-1 border-t border-gray-200">
+                        <span>QUEST #09</span>
+                        <span>✦</span>
+                    </div>
+                </div>
+
+                <!-- Button 10 (Locked) -->
+                <div class="locked-card rounded-2xl p-4 flex flex-col justify-between min-h-[120px] select-none" onclick="showLockedNotice(10)">
+                    <div class="flex items-center justify-between opacity-60">
+                        <span class="text-[10px] font-bold uppercase tracking-wider bg-gray-300 text-gray-700 px-2 py-0.5 rounded-full">
+                            WEEK 10
+                        </span>
+                        <span class="text-xs">🔒</span>
+                    </div>
+                    <div class="my-2">
+                        <h3 class="font-bold text-sm text-gray-500">尚未解鎖</h3>
+                        <p class="text-[11px] text-gray-400 mt-0.5">Locked Mission</p>
+                    </div>
+                    <div class="flex items-center justify-between text-[11px] font-medium text-gray-400 pt-1 border-t border-gray-200">
+                        <span>QUEST #10</span>
+                        <span>✦</span>
+                    </div>
+                </div>
+
+                <!-- Button 11 (Locked) -->
+                <div class="locked-card rounded-2xl p-4 flex flex-col justify-between min-h-[120px] select-none" onclick="showLockedNotice(11)">
+                    <div class="flex items-center justify-between opacity-60">
+                        <span class="text-[10px] font-bold uppercase tracking-wider bg-gray-300 text-gray-700 px-2 py-0.5 rounded-full">
+                            WEEK 11
+                        </span>
+                        <span class="text-xs">🔒</span>
+                    </div>
+                    <div class="my-2">
+                        <h3 class="font-bold text-sm text-gray-500">尚未解鎖</h3>
+                        <p class="text-[11px] text-gray-400 mt-0.5">Locked Mission</p>
+                    </div>
+                    <div class="flex items-center justify-between text-[11px] font-medium text-gray-400 pt-1 border-t border-gray-200">
+                        <span>QUEST #11</span>
+                        <span>✦</span>
+                    </div>
+                </div>
+
+                <!-- Button 12 (Locked) -->
+                <div class="locked-card rounded-2xl p-4 flex flex-col justify-between min-h-[120px] select-none" onclick="showLockedNotice(12)">
+                    <div class="flex items-center justify-between opacity-60">
+                        <span class="text-[10px] font-bold uppercase tracking-wider bg-gray-300 text-gray-700 px-2 py-0.5 rounded-full">
+                            WEEK 12
+                        </span>
+                        <span class="text-xs">🔒</span>
+                    </div>
+                    <div class="my-2">
+                        <h3 class="font-bold text-sm text-gray-500">尚未解鎖</h3>
+                        <p class="text-[11px] text-gray-400 mt-0.5">Locked Mission</p>
+                    </div>
+                    <div class="flex items-center justify-between text-[11px] font-medium text-gray-400 pt-1 border-t border-gray-200">
+                        <span>QUEST #12</span>
+                        <span>✦</span>
+                    </div>
+                </div>
+
+                <!-- Button 13 (Locked) -->
+                <div class="locked-card rounded-2xl p-4 flex flex-col justify-between min-h-[120px] select-none" onclick="showLockedNotice(13)">
+                    <div class="flex items-center justify-between opacity-60">
+                        <span class="text-[10px] font-bold uppercase tracking-wider bg-gray-300 text-gray-700 px-2 py-0.5 rounded-full">
+                            WEEK 13
+                        </span>
+                        <span class="text-xs">🔒</span>
+                    </div>
+                    <div class="my-2">
+                        <h3 class="font-bold text-sm text-gray-500">尚未解鎖</h3>
+                        <p class="text-[11px] text-gray-400 mt-0.5">Locked Mission</p>
+                    </div>
+                    <div class="flex items-center justify-between text-[11px] font-medium text-gray-400 pt-1 border-t border-gray-200">
+                        <span>QUEST #13</span>
+                        <span>✦</span>
+                    </div>
+                </div>
+
+                <!-- Button 14 (Locked) -->
+                <div class="locked-card rounded-2xl p-4 flex flex-col justify-between min-h-[120px] select-none" onclick="showLockedNotice(14)">
+                    <div class="flex items-center justify-between opacity-60">
+                        <span class="text-[10px] font-bold uppercase tracking-wider bg-gray-300 text-gray-700 px-2 py-0.5 rounded-full">
+                            WEEK 14
+                        </span>
+                        <span class="text-xs">🔒</span>
+                    </div>
+                    <div class="my-2">
+                        <h3 class="font-bold text-sm text-gray-500">尚未解鎖</h3>
+                        <p class="text-[11px] text-gray-400 mt-0.5">Locked Mission</p>
+                    </div>
+                    <div class="flex items-center justify-between text-[11px] font-medium text-gray-400 pt-1 border-t border-gray-200">
+                        <span>QUEST #14</span>
+                        <span>✦</span>
+                    </div>
+                </div>
+
+                <!-- Button 15 (Locked) -->
+                <div class="locked-card rounded-2xl p-4 flex flex-col justify-between min-h-[120px] select-none" onclick="showLockedNotice(15)">
+                    <div class="flex items-center justify-between opacity-60">
+                        <span class="text-[10px] font-bold uppercase tracking-wider bg-gray-300 text-gray-700 px-2 py-0.5 rounded-full">
+                            WEEK 15
+                        </span>
+                        <span class="text-xs">🔒</span>
+                    </div>
+                    <div class="my-2">
+                        <h3 class="font-bold text-sm text-gray-500">尚未解鎖</h3>
+                        <p class="text-[11px] text-gray-400 mt-0.5">Locked Mission</p>
+                    </div>
+                    <div class="flex items-center justify-between text-[11px] font-medium text-gray-400 pt-1 border-t border-gray-200">
+                        <span>QUEST #15</span>
+                        <span>✦</span>
+                    </div>
+                </div>
+
+                <!-- Button 16 (Locked) -->
+                <div class="locked-card rounded-2xl p-4 flex flex-col justify-between min-h-[120px] select-none" onclick="showLockedNotice(16)">
+                    <div class="flex items-center justify-between opacity-60">
+                        <span class="text-[10px] font-bold uppercase tracking-wider bg-gray-300 text-gray-700 px-2 py-0.5 rounded-full">
+                            WEEK 16
+                        </span>
+                        <span class="text-xs">🔒</span>
+                    </div>
+                    <div class="my-2">
+                        <h3 class="font-bold text-sm text-gray-500">尚未解鎖</h3>
+                        <p class="text-[11px] text-gray-400 mt-0.5">Final Mission</p>
+                    </div>
+                    <div class="flex items-center justify-between text-[11px] font-medium text-gray-400 pt-1 border-t border-gray-200">
+                        <span>FINAL STAGE</span>
+                        <span>✦</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Custom Toast Alert for Locked Buttons (Replaces alert) -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-black text-white px-5 py-3 rounded-full border-2 border-white shadow-[4px_4px_0px_rgba(0,0,0,0.3)] text-xs sm:text-sm font-semibold opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-2 z-50">
+        <span id="toast-icon">🔒</span>
+        <span id="toast-msg">Week 3 尚未解鎖，請繼續努力破關！♡</span>
+    </div>
+
+    <footer class="mt-12 text-center text-xs text-gray-500 tracking-wider">
+        <p>MADE WITH ♡ ✦ ⋆ | KOREAN MONOCHROME POLKA DOT STYLE</p>
+    </footer>
+
+    <script>
+        // Custom notification toast handler
+        let toastTimeout;
+        function showLockedNotice(weekNum) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            
+            toastMsg.textContent = `Week ${weekNum} 關卡尚未解鎖！請等待任務發布 ♡ ✦`;
+            
+            // Show toast
+            toast.classList.remove('opacity-0', 'pointer-events-none');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            // Clear previous timer if exists
+            clearTimeout(toastTimeout);
+
+            // Auto hide after 2.5s
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('opacity-100');
+                toast.classList.add('opacity-0', 'pointer-events-none');
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
