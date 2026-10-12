@@ -177,15 +177,15 @@
             <div class="mt-6 max-w-xs sm:max-w-md mx-auto bg-gray-100 border border-black rounded-full p-1.5 flex items-center gap-3 shadow-inner">
                 <span class="text-xs font-bold pl-2 text-black whitespace-nowrap flex items-center gap-1">
                     <span>LEVEL</span>
-                    <span class="bg-black text-white px-1.5 py-0.5 rounded text-[10px]">2/16</span>
+                    <span class="bg-black text-white px-1.5 py-0.5 rounded text-[10px]">3/16</span>
                 </span>
                 <div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden border border-gray-300 relative">
-                    <!-- Progress (2/16 = 12.5%) -->
-                    <div class="bg-black h-full rounded-full transition-all duration-1000 relative" style="width: 12.5%;">
+                    <!-- Progress (3/16 = 18.75%) -->
+                    <div class="bg-black h-full rounded-full transition-all duration-1000 relative" style="width: 18.75%;">
                         <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
                     </div>
                 </div>
-                <span class="text-xs pr-2 font-bold">12.5%</span>
+                <span class="text-xs pr-2 font-bold">18.75%</span>
             </div>
         </section>
 
@@ -245,23 +245,27 @@
                     </div>
                 </a>
 
-                <!-- Button 3 (Locked) -->
-                <div class="locked-card rounded-2xl p-4 flex flex-col justify-between min-h-[120px] select-none" onclick="showLockedNotice(3)">
-                    <div class="flex items-center justify-between opacity-60">
-                        <span class="text-[10px] font-bold uppercase tracking-wider bg-gray-300 text-gray-700 px-2 py-0.5 rounded-full">
+                <!-- Button 3 (Unlocked) -->
+                <a href="w3/index.html" class="unlocked-card rounded-2xl p-4 flex flex-col justify-between min-h-[120px] group">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-black uppercase tracking-wider bg-black text-white px-2 py-0.5 rounded-full">
                             WEEK 03
                         </span>
-                        <span class="text-xs">🔒</span>
+                        <span class="text-xs font-bold text-emerald-600 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded-md flex items-center gap-0.5">
+                            ● OPEN
+                        </span>
                     </div>
                     <div class="my-2">
-                        <h3 class="font-bold text-sm text-gray-500">尚未解鎖</h3>
-                        <p class="text-[11px] text-gray-400 mt-0.5">Locked Mission</p>
+                        <h3 class="font-bold text-sm sm:text-base leading-tight group-hover:underline decoration-2">
+                            迷因產生器
+                        </h3>
+                        <p class="text-[11px] text-gray-500 mt-0.5">w3/index.html</p>
                     </div>
-                    <div class="flex items-center justify-between text-[11px] font-medium text-gray-400 pt-1 border-t border-gray-200">
-                        <span>QUEST #03</span>
-                        <span>✦</span>
+                    <div class="flex items-center justify-between text-xs font-semibold pt-1 border-t border-gray-100 text-gray-700">
+                        <span>START</span>
+                        <span class="transform group-hover:translate-x-1 transition-transform">→</span>
                     </div>
-                </div>
+                </a>
 
                 <!-- Button 4 (Locked) -->
                 <div class="locked-card rounded-2xl p-4 flex flex-col justify-between min-h-[120px] select-none" onclick="showLockedNotice(4)">
@@ -505,7 +509,7 @@
     <!-- Custom Toast Alert for Locked Buttons (Replaces alert) -->
     <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-black text-white px-5 py-3 rounded-full border-2 border-white shadow-[4px_4px_0px_rgba(0,0,0,0.3)] text-xs sm:text-sm font-semibold opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-2 z-50">
         <span id="toast-icon">🔒</span>
-        <span id="toast-msg">Week 3 尚未解鎖，請繼續努力破關！♡</span>
+        <span id="toast-msg">Week 4 尚未解鎖，請繼續努力破關！♡</span>
     </div>
 
     <footer class="mt-12 text-center text-xs text-gray-500 tracking-wider">
