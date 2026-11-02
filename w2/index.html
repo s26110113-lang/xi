@@ -8,18 +8,187 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
-    <!-- 連結外部 CSS 樣式檔 -->
-    <link rel="stylesheet" href="style.css">
-    <!-- 載入外部 JS 腳本 (使用 defer 確保 DOM 載入後執行) -->
-    <script src="script.js" defer></script>
+    
+    <style>
+        /* --- 基礎設定與韓系黑白灰波點背景 --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* 韓系經典黑白波點背景 (Polka-Dot) */
+            background-color: #f7f7f7;
+            background-image: radial-gradient(#222222 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+            padding: 20px;
+            color: #222222;
+        }
+
+        /* --- 主卡片容器 --- */
+        .card-container {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 420px;
+            padding: 40px 28px;
+            border-radius: 32px;
+            border: 3.5px solid #222222;
+            /* 韓系立體陰影 */
+            box-shadow: 8px 8px 0px #222222;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            transition: transform 0.2s ease;
+        }
+
+        /* --- 大標題 --- */
+        .title {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #111111;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            word-break: break-all;
+            line-height: 1.3;
+        }
+
+        /* --- 圖片展示區 --- */
+        .image-box {
+            width: 100%;
+            height: 220px;
+            border-radius: 20px;
+            border: 2.5px solid #222222;
+            overflow: hidden;
+            background-color: #eeeeee;
+            box-shadow: 4px 4px 0px #222222;
+        }
+
+        .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* --- 按鈕群組 --- */
+        .button-group {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        /* 基礎按鈕樣式 */
+        .btn {
+            width: 100%;
+            padding: 16px 24px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            border-radius: 50px; /* 圓潤膠囊造型 */
+            cursor: pointer;
+            border: 2.5px solid #222222;
+            text-decoration: none;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.15s ease-in-out;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* 主按鈕：點點我 (黑底白字) */
+        .btn-primary {
+            background-color: #222222;
+            color: #ffffff;
+            box-shadow: 4px 4px 0px #888888;
+        }
+
+        .btn-primary:hover {
+            background-color: #444444;
+            transform: translateY(-2px);
+            box-shadow: 5px 5px 0px #666666;
+        }
+
+        .btn-primary:active {
+            transform: translateY(2px);
+            box-shadow: 2px 2px 0px #444444;
+        }
+
+        /* 馬上出發按鈕 (白底黑字/灰底) */
+        .btn-map {
+            background-color: #ffffff;
+            color: #222222;
+            box-shadow: 4px 4px 0px #222222;
+        }
+
+        .btn-map:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 5px 5px 0px #222222;
+        }
+
+        .btn-map:active {
+            transform: translateY(2px);
+            box-shadow: 2px 2px 0px #222222;
+        }
+
+        /* 隱藏元素用 */
+        .hidden {
+            display: none !important;
+        }
+
+        /* --- 動畫效果 --- */
+
+        /* 1. 抽籤時的快速縮放動畫 (Shuffle Effect) */
+        .shuffle {
+            animation: popScale 0.1s infinite alternate;
+        }
+
+        @keyframes popScale {
+            0% { transform: scale(0.96); opacity: 0.8; }
+            100% { transform: scale(1.04); opacity: 1; }
+        }
+
+        /* 2. 抽出結果時的生動彈跳動畫 (Bounce Winner Effect) */
+        .bounce-pop {
+            animation: bouncePop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes bouncePop {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) translateY(20px);
+            }
+            60% {
+                opacity: 1;
+                transform: scale(1.15) translateY(-8px);
+            }
+            80% {
+                transform: scale(0.95) translateY(2px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+    </style>
 </head>
 <body>
 
     <div class="card-container">
         <!-- 主標題區 -->
         <h1 id="food-title" class="title">晚餐ㄔ什麼？</h1>
-      
-
+        
         <!-- 圖片展示區（預設隱藏） -->
         <div id="image-container" class="image-box hidden">
             <img id="food-image" src="" alt="美食照片">
@@ -33,5 +202,112 @@
         </div>
     </div>
 
+    <script>
+        // 確保 HTML DOM 元素完全載入完成後才執行程式碼
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // 1. 取得頁面元素
+            const foodTitle = document.getElementById('food-title');
+            const drawBtn = document.getElementById('draw-btn');
+            const imageContainer = document.getElementById('image-container');
+            const foodImage = document.getElementById('food-image');
+            const mapBtn = document.getElementById('map-btn');
+
+            // 2. 美食清單資料庫（包含名稱、圖片連結、Google Map 搜尋連結）
+            const foodList = [
+                {
+                    name: "牛肉麵",
+                    image: "https://i.postimg.cc/W4P6fDBW/IMG-9530.jpg",
+                    mapQuery: "燕巢風味外省麵"
+                },
+                {
+                    name: "拉麵",
+                    image: "https://i.postimg.cc/sgvzWHkp/F91D214D-9036-4129-8EB2-09BC6A7075C1.jpg",
+                    mapQuery: "屋台拉麵"
+                },
+                {
+                    name: "燴飯",
+                    image: "https://i.postimg.cc/zG4PDX90/8.jpg",
+                    mapQuery: "沃野山丘"
+                },
+                {
+                    name: "咖哩飯",
+                    image: "https://i.postimg.cc/DysjzKPb/6.jpg",
+                    mapQuery: "鳳雄閣"
+                },
+                {
+                    name: "水餃",
+                    image: "https://i.postimg.cc/MGNxSSYr/7.jpg",
+                    mapQuery: "豪哥水餃"
+                }
+            ];
+
+            let isRolling = false; // 紀錄是否正在抽籤中
+
+            // 3. 點擊「點點我」按鈕觸發抽籤事件
+            drawBtn.addEventListener('click', () => {
+                if (isRolling) return; // 如果正在抽籤中，防止重複點擊
+                isRolling = true;
+
+                // 鎖定按鈕狀態
+                drawBtn.innerText = "抽取中...";
+                drawBtn.style.opacity = "0.7";
+
+                // 清除舊動畫與隱藏結果圖片/地圖按鈕
+                foodTitle.classList.remove('bounce-pop', 'shuffle');
+                imageContainer.classList.add('hidden');
+                mapBtn.classList.add('hidden');
+
+                // 開啟快速切換文字的抽籤動畫效果
+                foodTitle.classList.add('shuffle');
+
+                let counter = 0;
+                const totalDuration = 15; // 文字變換次數
+
+                // 快速輪播文字效果 (Interval)
+                const rollInterval = setInterval(() => {
+                    const randomIndex = Math.floor(Math.random() * foodList.length);
+                    foodTitle.innerText = foodList[randomIndex].name;
+                    counter++;
+
+                    // 當輪播完指定次數，決定最終結果
+                    if (counter >= totalDuration) {
+                        clearInterval(rollInterval);
+                        finishDraw();
+                    }
+                }, 80);
+
+                // 完成抽籤處理函數
+                function finishDraw() {
+                    // 隨機選出一個美食
+                    const selectedFood = foodList[Math.floor(Math.random() * foodList.length)];
+
+                    // 設定標題文字與最終動畫
+                    foodTitle.innerText = selectedFood.name;
+                    foodTitle.classList.remove('shuffle');
+                    
+                    // 強制觸發 CSS 彈跳動畫 (Reflow)
+                    void foodTitle.offsetWidth; 
+                    foodTitle.classList.add('bounce-pop');
+
+                    // 顯示美食圖片
+                    foodImage.src = selectedFood.image;
+                    foodImage.alt = selectedFood.name;
+                    imageContainer.classList.remove('hidden');
+
+                    // 設定 Google Map 按鈕連結並顯示
+                    const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(selectedFood.mapQuery)}`;
+                    mapBtn.href = mapUrl;
+                    mapBtn.classList.remove('hidden');
+
+                    // 復原「點點我」按鈕
+                    drawBtn.innerText = "再抽一次！";
+                    drawBtn.style.opacity = "1";
+                    isRolling = false;
+                }
+            });
+
+        });
+    </script>
 </body>
 </html>
