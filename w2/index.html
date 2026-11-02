@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今天吃什麼？ | 隨機美食抽籤機</title>
+    <!-- 引入韓系圓潤字體 Noto Sans TC -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- 連結外部 CSS 樣式檔 -->
+    <link rel="stylesheet" href="style.css">
+    <!-- 載入外部 JS 腳本 (使用 defer 確保 DOM 載入後執行) -->
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <div class="card-container">
+        <!-- 主標題區 -->
+        <h1 id="food-title" class="title">晚餐ㄔ什麼？</h1>
+      
+
+        <!-- 圖片展示區（預設隱藏） -->
+        <div id="image-container" class="image-box hidden">
+            <img id="food-image" src="" alt="美食照片">
+        </div>
+
+        <!-- 按鈕區 -->
+        <div class="button-group">
+            <button id="draw-btn" class="btn btn-primary">點點我</button>
+            <!-- 馬上出發 Go Map 按鈕（抽籤後顯示） -->
+            <a id="map-btn" href="#" target="_blank" class="btn btn-map hidden">馬上出發 📍</a>
+        </div>
+    </div>
+
+</body>
+</html>
