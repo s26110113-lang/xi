@@ -7,7 +7,157 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* ==========================================
+           韓系 Ins 風格與點點背景設計 (Korean Minimalist Style)
+           ========================================== */
+
+        /* 全局重設與預設字型 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', 'Noto Serif TC', serif, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #2c2c2c;
+            
+            /* 韓系淡灰色調與點點 (Dot Pattern) 背景設計 */
+            background-color: #f7f7f8;
+            background-image: radial-gradient(#d1d1d6 1.2px, transparent 1.2px);
+            background-size: 20px 20px;
+        }
+
+        /* 卡片主體容器（軟陰影與質感圓角） */
+        .card-container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 350px;
+            padding: 45px 30px;
+            border-radius: 28px;
+            border: 1px solid rgba(220, 220, 225, 0.6);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-container:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.07);
+        }
+
+        /* 1. 圓形大頭貼與柔和雙邊框 */
+        .avatar-wrapper {
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 20px auto;
+            border-radius: 50%;
+            padding: 4px;
+            background: #ffffff;
+            border: 1px solid #e5e5ea;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* 2. 名字與英文字體編排 */
+        .name {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+
+        .subtitle {
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 3px;
+            color: #8e8e93;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        /* 韓系極簡短分割線 */
+        .divider {
+            width: 28px;
+            height: 1px;
+            background-color: #d1d1d6;
+            margin: 0 auto 20px auto;
+        }
+
+        /* 自我介紹內文 */
+        .bio {
+            font-size: 13.5px;
+            line-height: 1.8;
+            color: #555555;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            margin-bottom: 30px;
+        }
+
+        /* 3. 按鈕區域與獨立樣式 */
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 13px 20px;
+            border-radius: 50px; /* 韓系膠囊形狀圓角 */
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .btn-icon {
+            margin-right: 8px;
+            font-size: 14px;
+        }
+
+        /* Instagram 按鈕：純黑高對比風格 */
+        .btn-ins {
+            background-color: #1c1c1e;
+            color: #ffffff;
+            border: 1px solid #1c1c1e;
+        }
+
+        .btn-ins:hover {
+            background-color: #3a3a3c;
+            border-color: #3a3a3c;
+        }
+
+        /* Email 按鈕：純白極簡灰邊風格 */
+        .btn-email {
+            background-color: #ffffff;
+            color: #2c2c2c;
+            border: 1px solid #e5e5ea;
+        }
+
+        .btn-email:hover {
+            background-color: #f2f2f7;
+            border-color: #d1d1d6;
+        }
+    </style>
 </head>
 <body>
 
@@ -18,7 +168,7 @@
         </div>
 
         <h1 class="name">陳宜嫻</h1>
-        <p class="subtitle">YI　XIAN CHEN </p>
+        <p class="subtitle">YI XIAN CHEN </p>
         
         <div class="divider"></div>
         
