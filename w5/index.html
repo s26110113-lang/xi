@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>雲端心電感應 (Y2K Edition)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'DotGothic16', sans-serif;
+      background-color: #050505;
+      color: #00ffff;
+      background-image: 
+        linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+      background-size: 30px 30px;
+    }
+    
+    .y2k-border {
+      border: 3px solid #ff00ff;
+      box-shadow: 4px 4px 0px 0px #00ffff;
+    }
+
+    .y2k-btn {
+      background-color: #ff00ff;
+      color: #000;
+      border: 2px solid #00ffff;
+      box-shadow: 3px 3px 0px 0px #00ffff;
+      transition: all 0.1s;
+    }
+
+    .y2k-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px 0px #00ffff;
+    }
+
+    /* 3D 翻牌動畫核心設定 */
+    .flip-card {
+      background-color: transparent;
+      perspective: 1000px;
+    }
+    .flip-card-inner {
+      transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform-style: preserve-3d;
+    }
+    .flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front, .flip-card-back {
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+    .flip-card-back {
+      transform: rotateY(180deg);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-6 relative">
+
+  <!-- 隱藏的房主控制台觸發區 (位於畫面左上角，透明無形) -->
+  <div id="secret-host-btn" class="fixed top-0 left-0 w-16 h-16 cursor-default opacity-0 z-50" onclick="toggleHostPanel()"></div>
+
+  <header class="text-center mb-10 mt-4">
+    <h1 class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-pink-500 drop-shadow-[2px_2px_rgba(255,0,255,0.8)]">
+      雲端心電感應
+    </h1>
+    <p class="text-pink-400 mt-2 tracking-widest text-sm">MULTIPLAYER TELEPATHY >> v1.0</p>
+  </header>
+
+  <!-- 登入與房間設定區塊 -->
+  <section id="login-section" class="w-full max-w-md bg-black y2k-border p-6 rounded-sm">
+    <h2 class="text-2xl text-pink-500 mb-4 text-center">SYSTEM LOGIN_</h2>
+    <div class="space-y-4">
+      <div>
+        <label class="block text-cyan-400 text-sm mb-1">房間代碼 (Room Code)</label>
+        <input type="text" id="room-input" class="w-full bg-black border-2 border-cyan-400 text-pink-500 px-3 py-2 focus:outline-none focus:border-pink-500" placeholder="輸入房號 (如: 9999)">
+      </div>
+      <div>
+        <label class="block text-cyan-400 text-sm mb-1">玩家名稱 (Player Name)</label>
+        <input type="text" id="player-input" class="w-full bg-black border-2 border-cyan-400 text-pink-500 px-3 py-2 focus:outline-none focus:border-pink-500" placeholder="你的暱稱">
+      </div>
+      <button onclick="joinRoom()" class="w-full y2k-btn py-2 text-lg font-bold mt-2 hover:bg-pink-400">ENTER ROOM</button>
+    </div>
+  </section>
+
+  <!-- 遊戲主區塊 -->
+  <section id="game-section" class="w-full max-w-4xl hidden flex-col items-center">
+    
+    <!-- 房主控制台 (預設隱藏，透過左上角暗門開啟) -->
+    <div id="host-panel" class="w-full bg-gray-900 border-2 border-yellow-400 shadow-[4px_4px_0_0_#eab308] p-4 mb-6 hidden">
+      <h3 class="text-yellow-400 font-bold mb-2">⭐ HOST CONSOLE (房主專屬)</h3>
+      <div class="flex flex-col md:flex-row gap-2">
+        <input type="text" id="question-input" class="flex-1 bg-black border border-yellow-400 text-yellow-400 px-2 py-1 focus:outline-none" placeholder="輸入題目...">
+        <button onclick="sendAction('set_question', { question: document.getElementById('question-input').value })" class="bg-yellow-400 text-black px-4 py-1 font-bold border border-yellow-200">發布題目</button>
+        <button onclick="sendAction('reveal')" class="bg-cyan-500 text-black px-4 py-1 font-bold border border-cyan-200">開牌 (Reveal)</button>
+        <button onclick="sendAction('reset')" class="bg-red-500 text-black px-4 py-1 font-bold border border-red-200">重置房間</button>
+      </div>
+    </div>
+
+    <!-- 狀態與題目顯示 -->
+    <div class="w-full flex justify-between text-sm mb-2 text-pink-400">
+      <span id="room-display" class="bg-black border border-pink-500 px-2 py-1">ROOM: ----</span>
+      <span id="player-display" class="bg-black border border-cyan-400 px-2 py-1">PLAYER: ----</span>
+    </div>
+    
+    <div class="w-full bg-black y2k-border p-6 text-center mb-8">
+      <h2 class="text-cyan-400 text-lg mb-2">CURRENT QUESTION_</h2>
+      <p id="current-question" class="text-2xl md:text-3xl text-pink-500 font-bold min-h-[40px] break-words">
+        等待房主出題中...
+      </p>
+    </div>
+
+    <!-- 玩家填答區 -->
+    <div id="answer-panel" class="w-full max-w-md flex gap-2 mb-10">
+      <input type="text" id="answer-input" class="flex-1 bg-black border-2 border-cyan-400 text-pink-500 px-3 py-2 text-lg focus:outline-none focus:border-pink-500" placeholder="輸入你的答案...">
+      <button onclick="submitAnswer()" class="y2k-btn px-6 font-bold text-lg hover:bg-pink-400">送出</button>
+    </div>
+
+    <!-- 玩家卡牌展示區 -->
+    <div id="cards-container" class="flex flex-wrap justify-center gap-6 w-full">
+      <!-- 卡牌將由 JS 動態生成 -->
+    </div>
+
+  </section>
+
+  <script>
+    const GAS_API_URL = "https://script.google.com/macros/s/AKfycby5G-uiUDESrfsqVR4idV95Dnb_2MUreZjMQnIxE5EobyBIN-Wa7uaWDh7IFVqFlaP7Ow/exec";
+    
+    let currentRoom = "";
+    let currentPlayer = "";
+    let pollInterval = null;
+    let isHost = false;
+
+    // 1. 登入並進入房間
+    function joinRoom() {
+      const roomVal = document.getElementById('room-input').value.trim();
+      const playerVal = document.getElementById('player-input').value.trim();
+      
+      if (!roomVal || !playerVal) {
+        alert("請輸入房間代碼與玩家名稱！");
+        return;
+      }
+      
+      currentRoom = roomVal;
+      currentPlayer = playerVal;
+      
+      document.getElementById('login-section').classList.add('hidden');
+      document.getElementById('game-section').classList.remove('hidden');
+      document.getElementById('game-section').classList.add('flex');
+      
+      document.getElementById('room-display').innerText = `ROOM: ${currentRoom}`;
+      document.getElementById('player-display').innerText = `PLAYER: ${currentPlayer}`;
+
+      // 啟動輪詢 (Polling) 機制，每 2 秒向後端要求最新狀態
+      pollInterval = setInterval(fetchRoomStatus, 2000);
+      fetchRoomStatus();
+    }
+
+    // 2. 隱藏房主開關
+    function toggleHostPanel() {
+      isHost = !isHost;
+      const hostPanel = document.getElementById('host-panel');
+      if(isHost) {
+        hostPanel.classList.remove('hidden');
+        alert("⚠️ HOST CONSOLE UNLOCKED (房主模式已啟用)");
+      } else {
+        hostPanel.classList.add('hidden');
+      }
+    }
+
+    // 3. 抓取遊戲狀態 (GET)
+    async function fetchRoomStatus() {
+      if (!currentRoom) return;
+      try {
+        const url = `${GAS_API_URL}?room=${encodeURIComponent(currentRoom)}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        updateUI(data);
+      } catch (error) {
+        console.error("狀態更新失敗:", error);
+      }
+    }
+
+    // 4. 更新前端畫面與 3D 卡牌
+    function updateUI(data) {
+      // 根據狀態更新題目顯示
+      const questionEl = document.getElementById('current-question');
+      if (data.status === 'setup') {
+        questionEl.innerText = "等待房主準備題目...";
+      } else {
+        questionEl.innerText = data.question || "無題目";
+      }
+
+      // 渲染卡牌
+      const cardsContainer = document.getElementById('cards-container');
+      cardsContainer.innerHTML = '';
+      
+      const isRevealed = (data.status === 'revealed');
+      
+      // 遍歷所有玩家的答案
+      for (const [player, answer] of Object.entries(data.answers || {})) {
+        const flipClass = isRevealed ? 'flipped' : '';
+        
+        // 建立 3D 翻牌 HTML 結構
+        const cardHTML = `
+          <div class="flip-card w-32 h-44 ${flipClass}">
+            <div class="flip-card-inner w-full h-full relative">
+              <!-- 卡牌背面 (未開牌狀態) -->
+              <div class="flip-card-front absolute w-full h-full bg-pink-600 border-4 border-cyan-400 flex flex-col items-center justify-center shadow-[4px_4px_0_0_#00ffff]">
+                <span class="text-black font-bold mb-2">?</span>
+                <span class="text-xs text-black bg-cyan-400 px-1 truncate w-4/5 text-center">${player}</span>
+              </div>
+              <!-- 卡牌正面 (開牌狀態) -->
+              <div class="flip-card-back absolute w-full h-full bg-black border-4 border-pink-500 flex flex-col items-center justify-between py-2 shadow-[4px_4px_0_0_#ff00ff]">
+                <div class="text-xs text-cyan-400 border-b border-pink-500 w-full text-center pb-1 truncate px-1">${player}</div>
+                <div class="text-lg font-bold text-pink-400 break-words px-2 text-center w-full max-h-24 overflow-hidden flex-1 flex items-center justify-center">${answer}</div>
+              </div>
+            </div>
+          </div>
+        `;
+        cardsContainer.insertAdjacentHTML('beforeend', cardHTML);
+      }
+    }
+
+    // 5. 玩家送出答案
+    function submitAnswer() {
+      const answerVal = document.getElementById('answer-input').value.trim();
+      if (!answerVal) return;
+      
+      sendAction('submit_answer', {
+        playerName: currentPlayer,
+        answer: answerVal
+      });
+      
+      document.getElementById('answer-input').value = '';
+      document.getElementById('answer-input').placeholder = '已送出答案...';
+    }
+
+    // 6. 統一發送動作給後端 (POST)
+    async function sendAction(action, extraPayload = {}) {
+      const payload = {
+        room: currentRoom,
+        action: action,
+        ...extraPayload
+      };
+
+      try {
+        await fetch(GAS_API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        });
+        
+        // 動作送出後立即強制更新一次畫面，不用等輪詢
+        fetchRoomStatus();
+      } catch (error) {
+        console.error(`執行 ${action} 失敗:`, error);
+      }
+    }
+  </script>
+</body>
+</html>
